@@ -34,6 +34,16 @@ import usserRoute from "./routes/userRoute.js";
 //routes
 app.use("/api/v1", usserRoute);
 
+//connecting to frontend
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.use("*", (_, res) => {
+  res.sendFile(path.join(__dirname, "/client/dist/index.html"));
+});
+
 //middleware
 app.use(middleware);
 

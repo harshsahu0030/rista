@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import User from "../../assets/user02.webp";
+import User from "../../assets/user.jpg";
 import IconButton from "../buttons/IconButton";
 import HoverImageUpdate from "../hover/HoverImageUpdate";
 import AuthInput from "../inputs/AuthInput";
