@@ -21,8 +21,8 @@ const UpdateProfileInfo = () => {
     username: currentUser?.username,
     name: currentUser?.name,
     bio: currentUser?.bio ? currentUser?.bio : "",
-    avatar: currentUser.avatar,
-    coverImage: currentUser.coverImage,
+    avatar: currentUser.avatar?.url,
+    coverImage: currentUser.coverImage?.url,
   });
   const [newUpdateForm, setNewUpdateForm] = useState({});
 
@@ -106,8 +106,8 @@ const UpdateProfileInfo = () => {
 
             <img
               src={
-                updateForm && updateForm.coverImage?.url
-                  ? updateForm.coverImage?.url
+                updateForm && updateForm.coverImage
+                  ? updateForm.coverImage
                   : CoverImg
               }
               alt="cover-image"
@@ -120,6 +120,7 @@ const UpdateProfileInfo = () => {
             type="file"
             hidden
             onChange={uploadBCoverImageHandler}
+            disabled={isPending}
           />
         </div>
 
@@ -134,7 +135,7 @@ const UpdateProfileInfo = () => {
             <HoverImageUpdate />
 
             <img
-              src={updateForm && updateForm.avatar?.url ? updateForm.avatar?.url : User}
+              src={updateForm && updateForm.avatar ? updateForm.avatar : User}
               alt="user-image"
               className="object-cover rounded-full"
             />
@@ -145,6 +146,7 @@ const UpdateProfileInfo = () => {
             type="file"
             hidden
             onChange={uploadAvatarHandler}
+            disabled={isPending}
           />
         </div>
       </div>
