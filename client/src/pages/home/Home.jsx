@@ -5,7 +5,6 @@ import NavigationLinks from "../../components/NavigationLinks";
 import { sideBarLinks } from "../../data/Links";
 
 const Home = () => {
-  console.log(import.meta.env)
   return (
     <div className="flex min-h-[91vh] w-full justify-between gap-2 xl:gap-20">
       {/* left  */}
