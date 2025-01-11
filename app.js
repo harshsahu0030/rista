@@ -4,6 +4,8 @@ import middleware from "./middlewares/error.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { v2 as cloudinary } from "cloudinary";
+import path from "path";
+import { fileURLToPath } from "url";
 
 //express
 const app = express();
@@ -37,6 +39,8 @@ app.use("/api/v1", usserRoute);
 //connecting to frontend
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+console.log(__filename)
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
