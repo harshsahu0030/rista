@@ -11,11 +11,11 @@ const ImageBox = ({ data }) => {
       onClick={() => navigate(data?.url)}
     >
       {/* left  */}
-      <div className="flex items-center justify-center h-full w-[10%] ">
+      <div className="flex items-center justify-center w-[15%]">
         <img
           src={data?.image}
           alt="image"
-          className="h-full rounded-full object-contain"
+          className="h-6 w-6 md:h-10 md:w-10 rounded-full object-cover"
         />
       </div>
 

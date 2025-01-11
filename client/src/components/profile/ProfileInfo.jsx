@@ -29,11 +29,13 @@ const ProfileInfo = () => {
           className="object-cover h-[80%] rounded-lg w-full"
         />
 
-        <img
-          src={currentUser?.avatar?.url ? currentUser?.avatar?.url : User}
-          alt="user-image"
-          className="absolute h-36 w-36 object-cover md:h-60 md:w-60 lg:h-48 lg:w-48  xl:h-40 xl:w-40 rounded-full bottom-0 left-5 md:left-10 p-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 "
-        />
+        <div className="absolute h-36 w-36 object-cover md:h-60 md:w-60 lg:h-48 lg:w-48 xl:h-40 xl:w-40 rounded-full bottom-0 left-5 md:left-10 overflow-hidden">
+          <img
+            src={currentUser && currentUser.avatar?.url ? currentUser.avatar?.url : User}
+            alt="user-image"
+            className="h-full w-full p-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 overflow-hidden rounded-full"
+          />
+        </div>
       </div>
 
       {/* details  */}

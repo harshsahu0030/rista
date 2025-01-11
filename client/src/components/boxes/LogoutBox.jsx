@@ -40,8 +40,8 @@ const LogoutBox = () => {
       onClick={handleLogout}
     >
       {/* left  */}
-      <div className="flex items-center justify-center h-full w-[15%] md:w-[10%] ">
-        <svg className="h-10 w-10 bg-cc p-2 rounded-full text-ce">
+      <div className="flex items-center justify-center w-[15%]">
+        <svg className="h-6 w-6 md:h-10 md:w-10 bg-cc p-1 md:p-2 rounded-full text-ce">
           <LogoutIcon />
         </svg>
       </div>

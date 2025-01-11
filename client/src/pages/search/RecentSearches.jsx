@@ -1,7 +1,7 @@
 import ImageBox from "../../components/boxes/ImageBox";
-import NavigationLinks from "../../components/NavigationLinks";
 import { profileDataLink, sideBarLinks } from "../../data/Links";
 import SearchUserBox from "../../components/boxes/SearchUserBox";
+import BackBox from "../../components/boxes/BackBox";
 
 const RecentSearches = () => {
   return (
@@ -23,7 +23,7 @@ const RecentSearches = () => {
       {/* center  */}
       <div className="flex flex-col w-[100%] lg:w-[70%] xl:w-[50%] lg:p-2 gap-2">
         <div className="w-full flex flex-col bg-cd lg:rounded-lg p-2 xl:p-5">
-          <NavigationLinks />
+          <BackBox name="Recent Searches" />
         </div>
 
         <div className="w-full flex flex-col bg-cd lg:rounded-lg p-2 xl:p-5 gap-2">

@@ -124,10 +124,10 @@ const UpdateProfileInfo = () => {
           />
         </div>
 
-        <div className="absolute h-36 w-36 md:h-60 md:w-60 lg:h-48 lg:w-48 xl:h-40 xl:w-40 rounded-full bottom-0 left-5 md:left-10  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 overflow-hidden">
+        <div className="absolute h-36 w-36 object-cover md:h-60 md:w-60 lg:h-48 lg:w-48 xl:h-40 xl:w-40 rounded-full bottom-0 left-5 md:left-10 overflow-hidden">
           <button
             type="button"
-            className="relative h-full rounded-lg w-full group/btn p-2"
+            className="relative h-full rounded-lg w-full group/btn"
             onClick={() => {
               avatarRef.current.click();
             }}
@@ -137,7 +137,7 @@ const UpdateProfileInfo = () => {
             <img
               src={updateForm && updateForm.avatar ? updateForm.avatar : User}
               alt="user-image"
-              className="object-cover rounded-full"
+              className="h-full w-full p-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 overflow-hidden rounded-full"
             />
           </button>
 

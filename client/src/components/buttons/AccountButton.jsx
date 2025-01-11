@@ -44,7 +44,7 @@ const AccountButton = () => {
       <img
         src={currentUser?.avatar?.url ? currentUser?.avatar?.url : User}
         alt="user"
-        className="h-full rounded-full object-contain cursor-pointer"
+        className="w-full h-full rounded-full object-cover cursor-pointer"
       />
 
       <div

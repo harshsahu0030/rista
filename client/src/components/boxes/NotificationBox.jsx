@@ -1,20 +1,24 @@
 import User from "../../assets/user.jpg";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AuthContext from "../../context/AuthUser";
+import { useContext } from "react";
 
 const NotificationBox = () => {
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div className="relative w-full h-[12vh] md:h-[10vh] lg:h-[8vh] xl:h-[11vh] flex bg-ce rounded-lg p-2 gap-4 hover:bg-ce/80 transition-all group/more cursor-pointer">
       {/* left  */}
       <div className="h-full w-[20%] flex items-center justify-center">
         <img
-          src={User}
+          src={currentUser?.avatar?.url ? currentUser.avatar.url : User}
           alt="img"
-          className="h-[80%] object-contain rounded-full"
+          className="h-12 w-12  object-cover rounded-full"
         />
       </div>
 
       {/* right */}
-      <div className="h-full w-[80%] flex flex-col items-start justify-center text-ca">
+      <div className="h-full w-[80%] pr-2 flex flex-col items-start justify-center text-ca">
         <span className="font-bold">Hello</span>
         <span className="text-sm line-clamp-1">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae,
