@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.default {
+  --ca: 33, 42, 49;
+  --cb: 46, 57, 68;
+  --cc: 18, 78, 102;
+  --cd: 116, 141, 146;
+  --ce: 211, 217, 212;
+
+  --black: 0, 0, 0;
+  --white: 251, 251, 251;
+}
+
+.custom-scrollbar {
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+}
+
+.custom-scrollbar:hover {
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(46, 57, 68) !important;
+  }
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
