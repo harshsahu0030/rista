@@ -32,6 +32,9 @@ const AddPost = lazy(() => import("./pages/profile/AddPost"));
 const Search = lazy(() => import("./pages/search/Search"));
 const RecentSearches = lazy(() => import("./pages/search/RecentSearches"));
 const Bookmarks = lazy(() => import("./pages/Bookmarks"));
+const ChangePassword = lazy(() =>
+  import("./pages/authentication/ChangePassword")
+);
 
 const App = () => {
   const router = createBrowserRouter([
@@ -150,6 +153,10 @@ const App = () => {
             {
               path: "addpost",
               element: <AddPost />,
+            },
+            {
+              path: "password",
+              element: <ChangePassword />,
             },
           ],
         },

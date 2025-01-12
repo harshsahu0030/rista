@@ -3,11 +3,12 @@ import AuthInput from "../inputs/AuthInput";
 import { resetpasswordvalidationSchema } from "../../validations/Authentication";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { resetPasswordUserApi } from "../../app/api/userApi";
 
 const ResetPasswordComponent = () => {
   const { token } = useParams();
+  const navigate = useNavigate();
 
   //states
   const [errors, setErrors] = useState({});
@@ -25,6 +26,7 @@ const ResetPasswordComponent = () => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
+      navigate("/");
     },
   });
 
@@ -72,7 +74,6 @@ const ResetPasswordComponent = () => {
           onChange={handleChange}
           error={errors.newPassword}
           disable={isPending}
-
         />
         <AuthInput
           id="reset-confirm"
@@ -84,7 +85,6 @@ const ResetPasswordComponent = () => {
           onChange={handleChange}
           error={errors.confirmPassword}
           disable={isPending}
-
         />
 
         <button

@@ -31,15 +31,16 @@ app.use(
 );
 
 //import routes
-import usserRoute from "./routes/userRoute.js";
+import authRoute from "./routes/authRoute.js";
+import userRoute from "./routes/userRoute.js";
 
 //routes
-app.use("/api/v1", usserRoute);
+app.use("/api/v1", authRoute);
+app.use("/api/v1", userRoute);
 
 //connecting to frontend
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 

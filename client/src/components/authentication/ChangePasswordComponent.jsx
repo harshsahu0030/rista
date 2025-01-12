@@ -3,7 +3,7 @@ import AuthInput from "../inputs/AuthInput";
 import { changepasswordvalidationSchema } from "../../validations/Authentication";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
-import { resetPasswordUserApi } from "../../app/api/userApi";
+import { changeUserPasswordApi } from "../../app/api/userApi";
 
 const ChangePasswordComponent = () => {
   //states
@@ -16,7 +16,7 @@ const ChangePasswordComponent = () => {
 
   //react quires
   const { mutate, isPending } = useMutation({
-    mutationFn: resetPasswordUserApi,
+    mutationFn: changeUserPasswordApi,
 
     onError: (error) => {
       toast.error(error.response.data.message);
@@ -38,7 +38,7 @@ const ChangePasswordComponent = () => {
       await changepasswordvalidationSchema.validate(changeForm, {
         abortEarly: false,
       });
-      mutate({ changeForm });
+      mutate(changeForm);
     } catch (error) {
       const newErrors = {};
 
@@ -53,7 +53,7 @@ const ChangePasswordComponent = () => {
   return (
     <div className="h-full w-full bg-ce rounded-lg p-5 flex flex-col gap-5">
       <div className="flex flex-col gap-2">
-        <h1 className="text-4xl font-bold text-ca">Reset Password</h1>
+        <h1 className="text-4xl font-bold text-ca">Change Password</h1>
         <p className="font-semibold text-sm text-cc">
           {"Enter a new password below to change your password"}
         </p>

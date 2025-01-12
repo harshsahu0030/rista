@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import FriendBox from "../../components/boxes/FriendBox";
 import ImageBox from "../../components/boxes/ImageBox";
 import IconButton from "../../components/buttons/IconButton";
 import NavigationLinks from "../../components/NavigationLinks";
@@ -8,6 +7,7 @@ import SeachInput from "../../components/inputs/SeachInput";
 import { useState } from "react";
 import ResentSearch from "../../components/boxes/ResentSearch";
 import AccountBox from "../../components/boxes/AccountBox";
+import SearchUserBox from "../../components/boxes/SearchUserBox";
 
 const Friends = () => {
   const navigate = useNavigate();
@@ -67,9 +67,9 @@ const Friends = () => {
 
           <ResentSearch />
 
-          <FriendBox data={profileDataLink} />
-          <FriendBox data={profileDataLink} />
-          <FriendBox data={profileDataLink} />
+          <SearchUserBox data={profileDataLink} />
+          <SearchUserBox data={profileDataLink} />
+          <SearchUserBox data={profileDataLink} />
         </div>
       </div>
 

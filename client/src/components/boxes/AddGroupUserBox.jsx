@@ -13,11 +13,11 @@ const AddGroupUserBox = ({ data, users, setUsers }) => {
   return (
     <div className="relative w-full h-[7vh] md:h-[6vh] lg:h-[5vh] xl:h-[8vh] flex rounded-lg p-2 gap-4 hover:bg-cc/80 transition-all cursor-pointer bg-cb ">
       {/* left  */}
-      <div className="flex items-center justify-center h-full w-[10%]">
+      <div className="flex items-center justify-center h-full w-[15%]">
         <img
           src={data?.image ? data.image : User}
           alt="image"
-          className="h-full rounded-full object-contain"
+          className="h-10 w-10 rounded-full object-cover"
         />
       </div>
 

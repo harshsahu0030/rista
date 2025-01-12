@@ -9,7 +9,7 @@ const NotificationBox = () => {
   return (
     <div className="relative w-full h-[12vh] md:h-[10vh] lg:h-[8vh] xl:h-[11vh] flex bg-ce rounded-lg p-2 gap-4 hover:bg-ce/80 transition-all group/more cursor-pointer">
       {/* left  */}
-      <div className="h-full w-[20%] flex items-center justify-center">
+      <div className="h-full w-[15%] flex items-center justify-center">
         <img
           src={currentUser?.avatar?.url ? currentUser.avatar.url : User}
           alt="img"
@@ -18,7 +18,7 @@ const NotificationBox = () => {
       </div>
 
       {/* right */}
-      <div className="h-full w-[80%] pr-2 flex flex-col items-start justify-center text-ca">
+      <div className="h-full w-[85%] pr-2 flex flex-col items-start justify-center text-ca">
         <span className="font-bold">Hello</span>
         <span className="text-sm line-clamp-1">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae,

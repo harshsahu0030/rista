@@ -72,9 +72,39 @@ export const logoutUserApi = async () => {
 };
 
 //update user profile
-
 export const updateUserProfileApi = async (updateForm) => {
   const config = { headers: { "Content-Type": "application/json" } };
-  const { data } = await axios.put(`/api/v1/update/profile`, updateForm, config);
+  const { data } = await axios.put(
+    `/api/v1/update/profile`,
+    updateForm,
+    config
+  );
+  return data;
+};
+
+//change user password
+export const changeUserPasswordApi = async (updateForm) => {
+  const config = { headers: { "Content-Type": "application/json" } };
+  const { data } = await axios.put(
+    `/api/v1/update/password`,
+    updateForm,
+    config
+  );
+  return data;
+};
+
+//----------------------------------------------------------------------------------------
+
+//get users
+export const getUsersApi = async ({ search = "" }) => {
+  const { data } = await axios.get(
+    `/api/v1/users?${search && `search=${search}`}`
+  );
+  return data;
+};
+
+//get users
+export const getUserApi = async (id) => {
+  const { data } = await axios.get(`/api/v1/users/${id}`);
   return data;
 };

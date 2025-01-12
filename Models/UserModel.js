@@ -32,6 +32,7 @@ const userSchema = mongoose.Schema(
         type: String,
       },
     },
+
     backgroundImage: {
       public_id: {
         type: String,
@@ -40,6 +41,7 @@ const userSchema = mongoose.Schema(
         type: String,
       },
     },
+
     birthday: {
       type: Date,
       required: true,
@@ -48,6 +50,21 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       required: true,
       default: false,
+    },
+
+    friends: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+    },
+
+    friendRequests: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+    },
+
+    chats: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Chat",
     },
 
     resetPasswordToken: {

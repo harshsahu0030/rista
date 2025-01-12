@@ -5,9 +5,27 @@ import ProfileInfo from "../../components/profile/ProfileInfo";
 import { sideBarLinks } from "../../data/Links";
 import AuthContext from "../../context/AuthUser";
 import AccountBox from "../../components/boxes/AccountBox";
+import { useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getUserApi } from "../../app/api/userApi";
+import { useEffect } from "react";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  //query
+  const { data, isFetching } = useQuery({
+    queryKey: ["get-user-details"],
+    queryFn: () => getUserApi(searchParams.get("profile_id")),
+  });
+
+  // useEffect
+  // useEffect(() => {
+  //   if (!searchParams.get("profile_id")) {
+  //     setSearchParams(`public_id=${currentUser._id}`);
+  //   }
+  // }, [searchParams, currentUser._id, setSearchParams]);
 
   return (
     <div className="flex min-h-[91vh] w-full justify-between gap-2 xl:gap-20">
@@ -29,8 +47,8 @@ const Profile = () => {
       {/* center  */}
       <div className="flex flex-col w-[100%] lg:w-[70%] xl:w-[50%] lg:p-2 gap-2">
         <div className="w-full flex flex-col bg-cd lg:rounded-lg p-6 xl:p-5 gap-2">
-          <BackBox name={currentUser?.username} />
-          <ProfileInfo />
+          <BackBox name={data?.data?.username} url={"/search"} />
+          <ProfileInfo data={data?.data} />
         </div>
       </div>
 

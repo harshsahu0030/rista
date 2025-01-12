@@ -8,6 +8,10 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 .default {
   --ca: 33, 42, 49;
   --cb: 46, 57, 68;

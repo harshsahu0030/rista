@@ -6,7 +6,6 @@ import NavigationLinks from "../components/NavigationLinks";
 import {
   accountLinks,
   bookmarksLinks,
-  profileDataLink,
   sideBarLinks,
 } from "../data/Links";
 
@@ -35,7 +34,7 @@ const Bookmarks = () => {
         </div>
 
         <div className="w-full flex flex-col bg-cd lg:rounded-lg p-2 xl:p-5 gap-2">
-          <ImageBox data={profileDataLink} />
+          <AccountBox />
         </div>
 
         <div className="w-full grid grid-cols-2 bg-cd lg:rounded-lg p-2 xl:p-5 gap-2">
