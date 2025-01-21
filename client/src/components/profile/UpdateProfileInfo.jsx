@@ -112,6 +112,8 @@ const UpdateProfileInfo = () => {
               }
               alt="cover-image"
               className="object-cover h-full w-full overflow-hidden"
+              height={50}
+              width={50}
             />
           </button>
 
@@ -138,6 +140,8 @@ const UpdateProfileInfo = () => {
               src={updateForm && updateForm.avatar ? updateForm.avatar : User}
               alt="user-image"
               className="h-full w-full p-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 overflow-hidden rounded-full"
+              height={50}
+              width={50}
             />
           </button>
 

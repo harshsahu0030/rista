@@ -20,6 +20,8 @@ const RequestBox = ({ data }) => {
           src={currentUser?.avatar?.url ? currentUser?.avatar.url : User}
           alt="image"
           className="h-10 w-10  object-cover rounded-full"
+          height={50}
+          width={50}
         />
 
         <div className="flex flex-col">

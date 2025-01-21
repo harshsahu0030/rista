@@ -29,23 +29,21 @@ export const getUserController = asyncHandler(async (req, res) => {
     throw new ApiError(400, "User not found");
   }
 
-  let sendedRequest = false;
-  let receivedRequest = false;
+  console.log(loginUser._id, user._id);
+
+  let status = "noRelation";
 
   if (loginUser._id === user._id) {
-  } else {
-    if (user.friends.includes(loginUser._id)) {
-      throw new ApiError(400, "You are already friends");
-    } else if (user.friendRequests.includes(loginUser._id)) {
-      receivedRequest = true;
-    } else if (loginUser.friendRequests.includes(user._id)) {
-      sendedRequest = true;
-    }
+    status = "self";
+  } else if (user.friends.includes(loginUser._id)) {
+    status = "friends";
+  } else if (user.friendRequests.includes(loginUser._id)) {
+    status = "sendedRequest";
+  } else if (loginUser.friendRequests.includes(user._id)) {
+    status = "receivedRequest";
   }
 
-  return res.json(
-    new ApiResponse(200, { user, sendedRequest, receivedRequest }, null)
-  );
+  return res.json(new ApiResponse(200, { user, status }, null));
 });
 
 //send request

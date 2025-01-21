@@ -55,6 +55,8 @@ const CreateGroupInfo = () => {
               src="https://images.pexels.com/photos/1933239/pexels-photo-1933239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt="background-image"
               className="object-cover h-full w-full overflow-hidden"
+              height={50}
+              width={50}
             />
           </button>
 
@@ -81,6 +83,8 @@ const CreateGroupInfo = () => {
               src={User}
               alt="user-image"
               className="object-cover rounded-full"
+              height={50}
+              width={50}
             />
           </button>
 

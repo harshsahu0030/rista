@@ -17,6 +17,8 @@ const SearchUserBox = ({ data }) => {
           src={data?.avatar?.url ? data?.avatar?.url : User}
           alt="image"
           className="h-12 w-12  object-cover rounded-full"
+          height={50}
+        width={50}
         />
       </div>
 

@@ -41,6 +41,8 @@ const NotificationButton = () => {
         src={Notification}
         alt="user"
         className="h-full rounded-full object-contain p-1"
+        height={50}
+        width={50}
       />
 
       <div

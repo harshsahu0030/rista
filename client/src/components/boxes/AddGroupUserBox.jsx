@@ -18,6 +18,8 @@ const AddGroupUserBox = ({ data, users, setUsers }) => {
           src={data?.image ? data.image : User}
           alt="image"
           className="h-10 w-10 rounded-full object-cover"
+          height={50}
+        width={50}
         />
       </div>
 

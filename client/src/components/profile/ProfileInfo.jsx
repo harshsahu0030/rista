@@ -15,6 +15,8 @@ const ProfileInfo = ({ data }) => {
   const { refetch } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  console.log(data.status);
+
   return (
     <div className=" h-fit w-full flex flex-col bg-ce rounded-lg pb-5 gap-4">
       {/* Images */}
@@ -25,6 +27,8 @@ const ProfileInfo = ({ data }) => {
           }
           alt="background-image"
           className="object-cover h-[80%] rounded-lg w-full"
+          height={50}
+          width={50}
         />
 
         <div className="absolute h-36 w-36 object-cover md:h-60 md:w-60 lg:h-48 lg:w-48 xl:h-40 xl:w-40 rounded-full bottom-0 left-5 md:left-10 overflow-hidden">
@@ -34,6 +38,8 @@ const ProfileInfo = ({ data }) => {
             }
             alt="user-image"
             className="h-full w-full p-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 overflow-hidden rounded-full"
+            height={50}
+            width={50}
           />
         </div>
       </div>
@@ -46,26 +52,42 @@ const ProfileInfo = ({ data }) => {
         </p>
       </div>
 
-      <div className="flex px-4 gap-4 flex-wrap mt-4">
-        <IconButton
-          name="Add Post"
-          icon={AddIcon}
-          type="dark"
-          onClick={refetch}
-        />
-        <IconButton
-          name="Edit Profile"
-          icon={EditIcon}
-          type="light"
-          onClick={() => navigate("/profile/update")}
-        />
-      </div>
-
-      <div className="flex px-4 gap-4 flex-wrap mt-4">
-        <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
-        <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
-        <IconButton name="" icon={MoreHorizIcon} type="dark" />
-      </div>
+      {data?.status === "self" ? (
+        <div className="flex px-4 gap-4 flex-wrap mt-4">
+          <IconButton
+            name="Add Post"
+            icon={AddIcon}
+            type="dark"
+            onClick={refetch}
+          />
+          <IconButton
+            name="Edit Profile"
+            icon={EditIcon}
+            type="light"
+            onClick={() => navigate("/profile/update")}
+          />
+        </div>
+      ) : data?.status === "noRelation" ? (
+        <div className="flex px-4 gap-4 flex-wrap mt-4">
+          <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
+          <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
+          <IconButton name="" icon={MoreHorizIcon} type="dark" />
+        </div>
+      ) : data?.status === "sendedRequest" ? (
+        <div className="flex px-4 gap-4 flex-wrap mt-4">
+          <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
+          <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
+          <IconButton name="" icon={MoreHorizIcon} type="dark" />
+        </div>
+      ) : (
+        data?.status === "receivedRequest" && (
+          <div className="flex px-4 gap-4 flex-wrap mt-4">
+            <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
+            <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
+            <IconButton name="" icon={MoreHorizIcon} type="dark" />
+          </div>
+        )
+      )}
     </div>
   );
 };

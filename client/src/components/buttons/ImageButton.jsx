@@ -16,12 +16,16 @@ const ImageButton = ({ name, image, type, onClick }) => {
           src={image}
           alt="user-image"
           className="h-full rounded-full object-contain"
+          height={50}
+          width={50}
         />
       ) : (
         <img
           src={User}
           alt="user-image"
           className="h-full rounded-full object-contain"
+          height={50}
+          width={50}
         />
       )}
       {name}

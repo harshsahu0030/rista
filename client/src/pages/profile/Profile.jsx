@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import BackBox from "../../components/boxes/BackBox";
 import ImageBox from "../../components/boxes/ImageBox";
 import ProfileInfo from "../../components/profile/ProfileInfo";
@@ -9,13 +9,14 @@ import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getUserApi } from "../../app/api/userApi";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
   let [searchParams, setSearchParams] = useSearchParams();
 
   //query
-  const { data, isFetching } = useQuery({
+  const { data, isFetching, isError, error } = useQuery({
     queryKey: ["get-user-details", searchParams.get("profile_id")],
     queryFn: () => getUserApi(searchParams.get("profile_id")),
   });
@@ -26,6 +27,12 @@ const Profile = () => {
       setSearchParams(`profile_id=${currentUser._id}`);
     }
   }, [searchParams, currentUser._id, setSearchParams]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.response.data.message);
+    }
+  }, [isError, error]);
 
   return (
     <div className="flex min-h-[91vh] w-full justify-between gap-2 xl:gap-20">

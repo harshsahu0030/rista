@@ -22,6 +22,8 @@ const Navbar = () => {
           alt="logo"
           className="mix-blend-difference h-full object-contain cursor-pointer"
           onClick={() => navigate("/")}
+          height={50}
+          width={50}
         />
 
         <div className="h-10 w-[100%] hidden md:block">
@@ -38,6 +40,8 @@ const Navbar = () => {
                 src={Menu}
                 alt="menu"
                 className="h-full rounded-full object-contain p-1 bg-ce"
+                height={50}
+                width={50}
               />
             </Link>
 
