@@ -22,14 +22,53 @@ export const getUsersController = asyncHandler(async (req, res) => {
 export const getUserController = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
+  const loginUser = await UserModel.findById(req.user._id);
   const user = await UserModel.findById(id);
 
   if (!user) {
     throw new ApiError(400, "User not found");
   }
 
-  return res.json(new ApiResponse(200, user, null));
+  let sendedRequest = false;
+  let receivedRequest = false;
+
+  if (loginUser._id === user._id) {
+  } else {
+    if (user.friends.includes(loginUser._id)) {
+      throw new ApiError(400, "You are already friends");
+    } else if (user.friendRequests.includes(loginUser._id)) {
+      receivedRequest = true;
+    } else if (loginUser.friendRequests.includes(user._id)) {
+      sendedRequest = true;
+    }
+  }
+
+  return res.json(
+    new ApiResponse(200, { user, sendedRequest, receivedRequest }, null)
+  );
 });
 
 //send request
-export const sendUserRequestController = asyncHandler(async (req, res) => {});
+export const sendUserRequestController = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const loginUser = await UserModel.findById(req.user._id);
+  const user = await UserModel.findById(id);
+
+  if (!user) {
+    throw new ApiError(400, "User not found");
+  }
+
+  let sendedRequest = false;
+  let recievedRequest = false;
+
+  if (user.friends.includes(loginUser._id)) {
+    throw new ApiError(400, "You are already friends");
+  } else if (user.sentRequest.includes(loginUser._id)) {
+    recievedRequest = true;
+  } else if (loginUser.sentRequest.includes(user._id)) {
+    sendedRequest = true;
+  } else {
+    user.sentRequest.push(loginUser._id);
+  }
+});

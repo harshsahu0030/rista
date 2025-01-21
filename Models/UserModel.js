@@ -52,20 +52,19 @@ const userSchema = mongoose.Schema(
       default: false,
     },
 
-    friends: {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
-    },
+    friends: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+    ],
 
-    friendRequests: {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
-    },
-
-    chats: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Chat",
-    },
+    friendRequests: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+    ],
 
     resetPasswordToken: {
       type: String,

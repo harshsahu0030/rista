@@ -6,6 +6,7 @@ const SeachInput = ({ placeholder, value, onChange }) => {
     <div className="h-full w-full rounded-full overflow-hidden flex items-center px-2 text-cd">
       <SearchOutlinedIcon fontSize="medium" className="" />
       <input
+        name="search-input"
         type="search"
         placeholder={placeholder ? placeholder : ""}
         className="h-full w-full bg-transparent outline-none px-2 text-ce placeholder:capitalize"

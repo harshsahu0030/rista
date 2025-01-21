@@ -94,7 +94,6 @@ export const changeUserPasswordApi = async (updateForm) => {
 };
 
 //----------------------------------------------------------------------------------------
-
 //get users
 export const getUsersApi = async ({ search = "" }) => {
   const { data } = await axios.get(
@@ -108,3 +107,4 @@ export const getUserApi = async (id) => {
   const { data } = await axios.get(`/api/v1/users/${id}`);
   return data;
 };
+

@@ -16,16 +16,16 @@ const Profile = () => {
 
   //query
   const { data, isFetching } = useQuery({
-    queryKey: ["get-user-details"],
+    queryKey: ["get-user-details", searchParams.get("profile_id")],
     queryFn: () => getUserApi(searchParams.get("profile_id")),
   });
 
   // useEffect
-  // useEffect(() => {
-  //   if (!searchParams.get("profile_id")) {
-  //     setSearchParams(`public_id=${currentUser._id}`);
-  //   }
-  // }, [searchParams, currentUser._id, setSearchParams]);
+  useEffect(() => {
+    if (!searchParams.get("profile_id")) {
+      setSearchParams(`profile_id=${currentUser._id}`);
+    }
+  }, [searchParams, currentUser._id, setSearchParams]);
 
   return (
     <div className="flex min-h-[91vh] w-full justify-between gap-2 xl:gap-20">
@@ -46,10 +46,14 @@ const Profile = () => {
 
       {/* center  */}
       <div className="flex flex-col w-[100%] lg:w-[70%] xl:w-[50%] lg:p-2 gap-2">
-        <div className="w-full flex flex-col bg-cd lg:rounded-lg p-6 xl:p-5 gap-2">
-          <BackBox name={data?.data?.username} url={"/search"} />
-          <ProfileInfo data={data?.data} />
-        </div>
+        {isFetching ? (
+          ""
+        ) : (
+          <div className="w-full flex flex-col bg-cd lg:rounded-lg p-6 xl:p-5 gap-2">
+            <BackBox name={data?.data?.user?.username} />
+            <ProfileInfo data={data?.data} />
+          </div>
+        )}
       </div>
 
       {/* right  */}

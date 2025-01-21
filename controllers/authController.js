@@ -188,7 +188,7 @@ export const loginUserController = asyncHandler(async (req, res) => {
 //-----------------------------------------------------------------------------
 //load user
 export const loadUserController = asyncHandler(async (req, res) => {
-  const user = await UserModel.findById(req.user._id , "name , username , email , avatar , coverImage , ");
+  const user = await UserModel.findById(req.user._id);
 
   if (!user) {
     throw new ApiError(400, "User not found");
@@ -229,7 +229,6 @@ export const updateUserPasswordController = asyncHandler(async (req, res) => {
   await user.save();
 
   clearAuthToken(res, 200, `Password has been updated! Please login again.`);
-
 });
 
 //-----------------------------------------------------------------------------
