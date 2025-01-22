@@ -194,7 +194,21 @@ export const loadUserController = asyncHandler(async (req, res) => {
     throw new ApiError(400, "User not found");
   }
 
-  return res.json(new ApiResponse(200, user, `welcome back! ${user.username}`));
+  return res.json(
+    new ApiResponse(
+      200,
+      {
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        avatar: user.avatar,
+        coverImage: user.coverImage,
+        birthday: user.birthday,
+        isAdmin: isAdmin,
+      },
+      `welcome back! ${user.username}`
+    )
+  );
 });
 
 //-----------------------------------------------------------------------------

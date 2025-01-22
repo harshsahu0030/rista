@@ -146,6 +146,7 @@ const App = () => {
               index: true,
               element: <Profile />,
             },
+            
             {
               path: "update",
               element: <UpdateProfile />,

@@ -9,12 +9,14 @@ const userSchema = mongoose.Schema(
       required: true,
       minLength: [3, "Name must be at least 3  characters"],
     },
+    
     username: {
       type: "String",
       required: true,
       unique: true,
       minLength: [3, "Username must be at least 3 characters"],
     },
+
     email: { type: "String", unique: true, required: true },
 
     password: {
@@ -33,7 +35,7 @@ const userSchema = mongoose.Schema(
       },
     },
 
-    backgroundImage: {
+    coverImage: {
       public_id: {
         type: String,
       },
@@ -46,6 +48,7 @@ const userSchema = mongoose.Schema(
       type: Date,
       required: true,
     },
+
     isAdmin: {
       type: Boolean,
       required: true,
