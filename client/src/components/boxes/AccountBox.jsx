@@ -11,7 +11,7 @@ const AccountBox = () => {
   return (
     <div
       className="relative w-full h-[7vh] md:h-[6vh] lg:h-[5vh] xl:h-[8vh] flex bg-ce rounded-lg p-2 gap-4 hover:bg-ce/80 transition-all cursor-pointer"
-      onClick={() => navigate("/profile")}
+      onClick={() => navigate(`/profile?public_id=${currentUser?._id}`)}
     >
       {/* left  */}
       <div className="flex items-center justify-center w-[15%]">

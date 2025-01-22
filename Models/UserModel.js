@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema(
       required: true,
       minLength: [3, "Name must be at least 3  characters"],
     },
-    
+
     username: {
       type: "String",
       required: true,
@@ -18,6 +18,8 @@ const userSchema = mongoose.Schema(
     },
 
     email: { type: "String", unique: true, required: true },
+
+    bio: { type: "String" },
 
     password: {
       type: "String",

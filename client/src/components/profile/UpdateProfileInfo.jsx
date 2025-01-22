@@ -84,7 +84,7 @@ const UpdateProfileInfo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutate(updateForm);
+    mutate(newUpdateForm);
   };
 
   return (

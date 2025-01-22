@@ -1,22 +1,14 @@
 import User from "../../assets/user.jpg";
 import CoverImg from "../../assets/cover.webp";
-import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import IconButton from "../buttons/IconButton";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
-import EditIcon from "@mui/icons-material/Edit";
-import AddIcon from "@mui/icons-material/Add";
-import AuthContext from "../../context/AuthUser";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import propTypes from "prop-types";
+import Self from "./Self";
+import NoRelation from "./NoRelation";
+import Friends from "./Friends";
+import SendedRequest from "./SendedRequest";
+import ReceivedRequest from "./ReceivedRequest";
 
 const ProfileInfo = ({ data }) => {
-  const { refetch } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  console.log(data.status);
-
+  console.log(data);
   return (
     <div className=" h-fit w-full flex flex-col bg-ce rounded-lg pb-5 gap-4">
       {/* Images */}
@@ -43,7 +35,6 @@ const ProfileInfo = ({ data }) => {
           />
         </div>
       </div>
-
       {/* details  */}
       <div className="flex flex-col px-4 text-ca">
         <h2 className="font-bold text-xl md:text-2xl">{data?.user?.name}</h2>
@@ -52,42 +43,39 @@ const ProfileInfo = ({ data }) => {
         </p>
       </div>
 
-      {data?.status === "self" ? (
-        <div className="flex px-4 gap-4 flex-wrap mt-4">
-          <IconButton
-            name="Add Post"
-            icon={AddIcon}
-            type="dark"
-            onClick={refetch}
-          />
-          <IconButton
-            name="Edit Profile"
-            icon={EditIcon}
-            type="light"
-            onClick={() => navigate("/profile/update")}
-          />
-        </div>
-      ) : data?.status === "noRelation" ? (
-        <div className="flex px-4 gap-4 flex-wrap mt-4">
-          <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
-          <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
-          <IconButton name="" icon={MoreHorizIcon} type="dark" />
-        </div>
-      ) : data?.status === "sendedRequest" ? (
-        <div className="flex px-4 gap-4 flex-wrap mt-4">
-          <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
-          <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
-          <IconButton name="" icon={MoreHorizIcon} type="dark" />
-        </div>
-      ) : (
-        data?.status === "receivedRequest" && (
-          <div className="flex px-4 gap-4 flex-wrap mt-4">
-            <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
-            <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
-            <IconButton name="" icon={MoreHorizIcon} type="dark" />
-          </div>
-        )
-      )}
+      <hr  className="border border-cd"/>
+
+      <div className="flex px-4 gap-4 flex-wrap mt-4">
+        {data?.status === "self" && <Self />}
+        {data?.status === "noRelation" && <NoRelation />}
+        {data?.status === "friends" && <Friends />}
+        {data?.status === "sendedRequest" && <SendedRequest />}
+        {data?.status === "receivedRequest" && <ReceivedRequest />}
+      </div>
+
+      {/* 
+      // ) : data?.status === "noRelation" ? ( //{" "}
+      <div className="flex px-4 gap-4 flex-wrap mt-4">
+        // <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
+        // <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
+        // <IconButton name="" icon={MoreHorizIcon} type="dark" />
+        //{" "}
+      </div>
+      // ) : data?.status === "sendedRequest" ? ( //{" "}
+      <div className="flex px-4 gap-4 flex-wrap mt-4">
+        // <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
+        // <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
+        // <IconButton name="" icon={MoreHorizIcon} type="dark" />
+        //{" "}
+      </div>
+      // ) : ( // data?.status === "receivedRequest" && ( //{" "}
+      <div className="flex px-4 gap-4 flex-wrap mt-4">
+        // <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
+        // <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
+        // <IconButton name="" icon={MoreHorizIcon} type="dark" />
+        //{" "}
+      </div>
+      // ) // ) */}
     </div>
   );
 };

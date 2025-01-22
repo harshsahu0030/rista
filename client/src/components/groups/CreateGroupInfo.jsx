@@ -82,7 +82,7 @@ const CreateGroupInfo = () => {
             <img
               src={User}
               alt="user-image"
-              className="object-cover rounded-full"
+              className="object-cover rounded-full h-full w-full"
               height={50}
               width={50}
             />

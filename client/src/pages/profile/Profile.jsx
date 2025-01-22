@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import BackBox from "../../components/boxes/BackBox";
 import ImageBox from "../../components/boxes/ImageBox";
 import ProfileInfo from "../../components/profile/ProfileInfo";
@@ -18,7 +18,12 @@ const Profile = () => {
   //query
   const { data, isFetching, isError, error } = useQuery({
     queryKey: ["get-user-details", searchParams.get("profile_id")],
-    queryFn: () => getUserApi(searchParams.get("profile_id")),
+    queryFn: () =>
+      getUserApi(
+        searchParams.get("profile_id")
+          ? searchParams.get("profile_id")
+          : currentUser._id
+      ),
   });
 
   // useEffect

@@ -102,9 +102,38 @@ export const getUsersApi = async ({ search = "" }) => {
   return data;
 };
 
-//get users
+//get user details
 export const getUserApi = async (id) => {
   const { data } = await axios.get(`/api/v1/users/${id}`);
   return data;
 };
 
+//send request
+export const sendRequestUserApi = async (id) => {
+  const { data } = await axios.get(`/api/v1/users/send/${id}`);
+  return data;
+};
+
+//confirm request
+export const confirmRequestUserApi = async (id) => {
+  const { data } = await axios.get(`/api/v1/users/confirm/${id}`);
+  return data;
+};
+
+//reject request
+export const rejectRequestUserApi = async (id) => {
+  const { data } = await axios.get(`/api/v1/users/reject/${id}`);
+  return data;
+};
+
+//cancel request
+export const cancelRequestUserApi = async (id) => {
+  const { data } = await axios.get(`/api/v1/users/cancel/${id}`);
+  return data;
+};
+
+//unfriend user
+export const unfriendUserApi = async (id) => {
+  const { data } = await axios.get(`/api/v1/users/unfriend/${id}`);
+  return data;
+};

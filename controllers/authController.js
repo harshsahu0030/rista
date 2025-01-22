@@ -198,13 +198,15 @@ export const loadUserController = asyncHandler(async (req, res) => {
     new ApiResponse(
       200,
       {
+        _id: user._id,
         name: user.name,
         username: user.username,
         email: user.email,
+        bio: user.bio,
         avatar: user.avatar,
         coverImage: user.coverImage,
         birthday: user.birthday,
-        isAdmin: isAdmin,
+        isAdmin: user.isAdmin,
       },
       `welcome back! ${user.username}`
     )
@@ -264,7 +266,7 @@ export const updateUserProfileController = asyncHandler(async (req, res) => {
 
   if (coverImage) {
     req.body.coverImage = await singleUploadCloudinary(coverImage);
-    if (user?.avatar?.public_id) {
+    if (user?.coverImage?.public_id) {
       await singledeleteCloudinary(user?.coverImage?.public_id);
     }
   }
