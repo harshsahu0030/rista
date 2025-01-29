@@ -13,7 +13,7 @@ const NotificationBox = () => {
         <img
           src={currentUser?.avatar?.url ? currentUser.avatar.url : User}
           alt="img"
-          className="h-12 w-12  object-cover rounded-full"
+          className="h-12 w-12  object-cover rounded-full bg-white"
           height={50}
         width={50}
         />

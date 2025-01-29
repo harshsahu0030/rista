@@ -20,10 +20,19 @@ const schema = new Schema(
         ref: "User",
       },
     ],
+    messages: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Message",
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-export const Chat = mongoose.models.Chat || model("Chat", schema);
+
+const ChatModel = mongoose.models.Chat || model("Chat", schema);
+
+export default ChatModel;

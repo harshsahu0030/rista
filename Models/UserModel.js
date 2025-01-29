@@ -71,6 +71,13 @@ const userSchema = mongoose.Schema(
       },
     ],
 
+    sendRequests: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+    ],
+
     resetPasswordToken: {
       type: String,
     },

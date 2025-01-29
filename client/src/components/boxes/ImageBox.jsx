@@ -15,7 +15,7 @@ const ImageBox = ({ data }) => {
         <img
           src={data?.image}
           alt="image"
-          className="h-6 w-6 md:h-10 md:w-10 rounded-full object-cover"
+          className="h-6 w-6 md:h-10 md:w-10 rounded-full object-cover bg-white"
           height={50}
           width={50}
         />

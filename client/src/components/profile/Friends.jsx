@@ -1,14 +1,14 @@
 import IconButton from "../buttons/IconButton";
-import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 const Friends = () => {
   return (
     <>
-      <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
-      <IconButton name="" icon={MoreHorizIcon} type="dark" />
-
+      <IconButton
+        name="Friends"
+        icon={SupervisorAccountIcon}
+        type="dark"
+      />
     </>
   );
 };

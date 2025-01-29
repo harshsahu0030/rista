@@ -20,8 +20,51 @@ export const getUsersController = asyncHandler(async (req, res) => {
   return res.json(new ApiResponse(200, users, null));
 });
 
+//get users request
+export const getUsersFriendsController = asyncHandler(async (req, res) => {
+  const user = await UserModel.findById(req.user._id).populate(
+    "friends",
+    "username name avatar"
+  );
+
+  return res.json(new ApiResponse(200, { users: user.friends }, null));
+});
+
+//get users request
+export const getUsersRequestController = asyncHandler(async (req, res) => {
+  const user = await UserModel.findById(req.user._id).populate(
+    "friendRequests",
+    "username name avatar"
+  );
+
+  return res.json(new ApiResponse(200, { users: user.friendRequests }, null));
+});
+
+//get users request send
+export const getUsersRequestSendController = asyncHandler(async (req, res) => {
+  const user = await UserModel.findById(req.user._id).populate(
+    "sendRequests",
+    "username name avatar"
+  );
+
+  return res.json(new ApiResponse(200, { users: user.sendRequests }, null));
+});
+
 //get user
 export const getUserController = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const user = await UserModel.findById(id);
+
+  if (!user) {
+    throw new ApiError(400, "User not found");
+  }
+
+  return res.json(new ApiResponse(200, { user }, null));
+});
+
+//get user
+export const getUserRelationController = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const loginUser = await UserModel.findById(req.user._id);
@@ -33,7 +76,7 @@ export const getUserController = asyncHandler(async (req, res) => {
 
   let include = userIncludes(loginUser, user);
 
-  return res.json(new ApiResponse(200, { status: include, user }, null));
+  return res.json(new ApiResponse(200, { status: include }, null));
 });
 
 //send request
@@ -56,7 +99,10 @@ export const sendUserRequestController = asyncHandler(async (req, res) => {
     .receivedRequest();
 
   user.friendRequests.push(loginUser._id);
+  loginUser.sendRequests.push(user._id);
+
   await user.save();
+  await loginUser.save();
 
   return res.json(new ApiResponse(200, {}, `Request sended to ${user.name}`));
 });
@@ -78,9 +124,12 @@ export const confirmUserRequestController = asyncHandler(async (req, res) => {
 
   user.friends.push(loginUser._id);
   loginUser.friends.push(user._id);
-  
+
   loginUser.friendRequests = loginUser.friendRequests.filter(
     (item) => item.toString() !== user._id.toString()
+  );
+  user.sendRequests = user.sendRequests.filter(
+    (item) => item.toString() !== loginUser._id.toString()
   );
 
   await loginUser.save();
@@ -107,8 +156,12 @@ export const rejectUserRequestController = asyncHandler(async (req, res) => {
   loginUser.friendRequests = loginUser.friendRequests.filter(
     (item) => item.toString() !== user._id.toString()
   );
+  user.sendRequests = user.sendRequests.filter(
+    (item) => item.toString() !== loginUser._id.toString()
+  );
 
   await loginUser.save();
+  await user.save();
 
   return res.json(new ApiResponse(200, {}, "Request rejected"));
 });
@@ -135,7 +188,11 @@ export const cancelUserRequestController = asyncHandler(async (req, res) => {
   user.friendRequests = loginUser.friendRequests.filter(
     (item) => item.toString() !== loginUser._id.toString()
   );
+  loginUser.sendRequests = loginUser.sendRequests.filter(
+    (item) => item.toString() !== user._id.toString()
+  );
 
+  await loginUser.save();
   await user.save();
 
   return res.json(new ApiResponse(200, {}, "Request canceled"));

@@ -102,6 +102,12 @@ export const getUsersApi = async ({ search = "" }) => {
   return data;
 };
 
+//get user relaton
+export const getUserRelationApi = async (id) => {
+  const { data } = await axios.get(`/api/v1/users/relation/${id}`);
+  return data;
+};
+
 //get user details
 export const getUserApi = async (id) => {
   const { data } = await axios.get(`/api/v1/users/${id}`);

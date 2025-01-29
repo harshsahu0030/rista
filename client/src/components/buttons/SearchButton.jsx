@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import SeachInput from "../inputs/SeachInput";
 import SearchUserBox from "../boxes/SearchUserBox";
-import { profileDataLink } from "../../data/Links";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../hooks/Debounce";
 import { getUsersApi } from "../../app/api/userApi";
@@ -23,6 +22,7 @@ const SearchButton = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["get-users"],
     queryFn: () => getUsersApi({ search: searchQuery }),
+    retry: 1
   });
 
   //functions

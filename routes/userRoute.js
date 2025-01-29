@@ -4,7 +4,11 @@ import {
   cancelUserRequestController,
   confirmUserRequestController,
   getUserController,
+  getUserRelationController,
   getUsersController,
+  getUsersFriendsController,
+  getUsersRequestController,
+  getUsersRequestSendController,
   rejectUserRequestController,
   sendUserRequestController,
   unfriendUserController,
@@ -14,7 +18,19 @@ const router = express.Router();
 
 router.route("/users").get(isAuthenticated, getUsersController);
 
+router.route("/users/friends").get(isAuthenticated, getUsersFriendsController);
+
+router.route("/users/requests").get(isAuthenticated, getUsersRequestController);
+
+router
+  .route("/users/requestssend")
+  .get(isAuthenticated, getUsersRequestSendController);
+
 router.route("/users/:id").get(isAuthenticated, getUserController);
+
+router
+  .route("/users/relation/:id")
+  .get(isAuthenticated, getUserRelationController);
 
 router.route("/users/send/:id").get(isAuthenticated, sendUserRequestController);
 

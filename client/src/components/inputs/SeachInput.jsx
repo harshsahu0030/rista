@@ -12,6 +12,7 @@ const SeachInput = ({ placeholder, value, onChange }) => {
         className="h-full w-full bg-transparent outline-none px-2 text-ce placeholder:capitalize"
         value={value ? value : ""}
         onChange={onChange ? onChange : ""}
+        autoComplete="off"
       />
     </div>
   );

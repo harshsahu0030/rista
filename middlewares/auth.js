@@ -26,3 +26,26 @@ export const authorizeRoles = (...roles) => {
     next();
   };
 };
+
+//socket authenticator
+export const socketAuthenticator = async (err, socket, next) => {
+  try {
+    if (err) return next(err);
+    const authToken = socket.request.cookies.token;
+
+    if (!authToken) return next(new ApiError("Please login first", 401));
+
+    const decodedData = jwt.verify(authToken, process.env.JWT_SECRET);
+
+    const user = await UserModel.findById(decodedData._id);
+
+    if (!user) return next(new ApiError("Please login first", 401));
+
+    socket.user = user;
+
+
+    return next();
+  } catch (error) {
+    return next(new ApiError("Please login first", 401));
+  }
+};

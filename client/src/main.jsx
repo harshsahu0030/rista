@@ -7,17 +7,20 @@ import { Toaster } from "react-hot-toast";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { SocketProvider } from "./context/Socket.jsx";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
-    <QueryClientProvider client={queryClient}>
-      <HelmetProvider>
-        <AuthUserProvider>
+  <QueryClientProvider client={queryClient}>
+    <HelmetProvider>
+      <AuthUserProvider>
+        <SocketProvider>
           <Toaster />
           <App />
           <ReactQueryDevtools initialIsOpen={false} />
-        </AuthUserProvider>
-      </HelmetProvider>
-    </QueryClientProvider>
+        </SocketProvider>
+      </AuthUserProvider>
+    </HelmetProvider>
+  </QueryClientProvider>
 );

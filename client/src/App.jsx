@@ -1,8 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense} from "react";
 import { AuthenticatedUser, Authentication, Every } from "./Layout";
 import Error from "./pages/Error";
 import PageLoader from "./components/Loader/PageLoader";
+
 
 //every
 const ForgotPassword = lazy(() =>
@@ -37,6 +38,8 @@ const ChangePassword = lazy(() =>
 );
 
 const App = () => {
+
+
   const router = createBrowserRouter([
     //Every
     {
@@ -146,7 +149,7 @@ const App = () => {
               index: true,
               element: <Profile />,
             },
-            
+
             {
               path: "update",
               element: <UpdateProfile />,

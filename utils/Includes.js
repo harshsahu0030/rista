@@ -9,9 +9,9 @@ export const userIncludes = (loginUser, searchUser) => {
 
   if (loginUser?._id.toString() === searchUser?._id.toString()) {
     status = "self";
-  } else if (searchUser?.friends?.includes(loginUser._id)) {
+  } else if (loginUser?.friends?.includes(searchUser._id)) {
     status = "friends";
-  } else if (searchUser?.friendRequests?.includes(loginUser._id)) {
+  } else if (loginUser?.sendRequests?.includes(searchUser._id)) {
     status = "sendedRequest";
   } else if (loginUser?.friendRequests?.includes(searchUser._id)) {
     status = "receivedRequest";

@@ -1,14 +1,18 @@
 import User from "../../assets/user.jpg";
 import CoverImg from "../../assets/cover.webp";
 import propTypes from "prop-types";
-import Self from "./Self";
 import NoRelation from "./NoRelation";
 import Friends from "./Friends";
 import SendedRequest from "./SendedRequest";
 import ReceivedRequest from "./ReceivedRequest";
+import Self from "./Self";
+import { useNavigate } from "react-router-dom";
+import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
+import IconButton from "../buttons/IconButton";
 
-const ProfileInfo = ({ data }) => {
-  console.log(data);
+const ProfileInfo = ({ data, refetch, userRelation }) => {
+  const navigate = useNavigate();
+
   return (
     <div className=" h-fit w-full flex flex-col bg-ce rounded-lg pb-5 gap-4">
       {/* Images */}
@@ -43,45 +47,44 @@ const ProfileInfo = ({ data }) => {
         </p>
       </div>
 
-      <hr  className="border border-cd"/>
+      <hr className="border border-cd" />
 
       <div className="flex px-4 gap-4 flex-wrap mt-4">
-        {data?.status === "self" && <Self />}
-        {data?.status === "noRelation" && <NoRelation />}
-        {data?.status === "friends" && <Friends />}
-        {data?.status === "sendedRequest" && <SendedRequest />}
-        {data?.status === "receivedRequest" && <ReceivedRequest />}
-      </div>
+        {userRelation?.status === "self" && (
+          <Self data={data?.user?._id} refetch={refetch} />
+        )}
+        {userRelation?.status === "noRelation" && (
+          <NoRelation data={data?.user?._id} refetch={refetch} />
+        )}
+        {userRelation?.status === "friends" && (
+          <Friends data={data?.user?._id} refetch={refetch} />
+        )}
+        {userRelation?.status === "sendedRequest" && (
+          <SendedRequest data={data?.user?._id} refetch={refetch} />
+        )}
+        {userRelation?.status === "receivedRequest" && (
+          <ReceivedRequest data={data?.user?._id} refetch={refetch} />
+        )}
 
-      {/* 
-      // ) : data?.status === "noRelation" ? ( //{" "}
-      <div className="flex px-4 gap-4 flex-wrap mt-4">
-        // <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
-        // <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
-        // <IconButton name="" icon={MoreHorizIcon} type="dark" />
-        //{" "}
+        {userRelation?.status === "self" ? (
+          ""
+        ) : (
+          <IconButton
+            name=""
+            icon={ForumOutlinedIcon}
+            type="light"
+            onClick={() => navigate(`/`)}
+          />
+        )}
       </div>
-      // ) : data?.status === "sendedRequest" ? ( //{" "}
-      <div className="flex px-4 gap-4 flex-wrap mt-4">
-        // <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
-        // <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
-        // <IconButton name="" icon={MoreHorizIcon} type="dark" />
-        //{" "}
-      </div>
-      // ) : ( // data?.status === "receivedRequest" && ( //{" "}
-      <div className="flex px-4 gap-4 flex-wrap mt-4">
-        // <IconButton name="Add" icon={PersonAddAltIcon} type="dark" />
-        // <IconButton name="Message" icon={ForumOutlinedIcon} type="light" />
-        // <IconButton name="" icon={MoreHorizIcon} type="dark" />
-        //{" "}
-      </div>
-      // ) // ) */}
     </div>
   );
 };
 
 ProfileInfo.propTypes = {
   data: propTypes.object,
+  userRelation: propTypes.object,
+  refetch: propTypes.func,
 };
 
 export default ProfileInfo;

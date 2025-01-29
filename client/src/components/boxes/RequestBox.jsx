@@ -19,7 +19,7 @@ const RequestBox = ({ data }) => {
         <img
           src={currentUser?.avatar?.url ? currentUser?.avatar.url : User}
           alt="image"
-          className="h-10 w-10  object-cover rounded-full"
+          className="h-10 w-10  object-cover rounded-full bg-white"
           height={50}
           width={50}
         />
