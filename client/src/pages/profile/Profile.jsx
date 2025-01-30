@@ -24,12 +24,12 @@ const Profile = () => {
           ? searchParams.get("profile_id")
           : currentUser._id
       ),
+    retry: 1,
   });
+
   const {
     data: userRelation,
     isFetching: userRelationLoading,
-    isError: userRelationIsError,
-    error: userRelationError,
     refetch,
   } = useQuery({
     queryKey: ["get-user-retaions", searchParams.get("profile_id")],
@@ -40,7 +40,6 @@ const Profile = () => {
           : currentUser._id
       ),
   });
-
 
   // useEffect
   useEffect(() => {
@@ -53,10 +52,7 @@ const Profile = () => {
     if (isError) {
       toast.error(error.response.data.message);
     }
-    if (userRelationIsError) {
-      toast.error(userRelationError.response.data.message);
-    }
-  }, [isError, error, userRelationIsError, userRelationError]);
+  }, [isError, error]);
 
   return (
     <div className="flex min-h-[91vh] w-full justify-between gap-2 xl:gap-20">
@@ -78,7 +74,9 @@ const Profile = () => {
       {/* center  */}
       <div className="flex flex-col w-[100%] lg:w-[70%] xl:w-[50%] lg:p-2 gap-2">
         {isFetching && userRelationLoading ? (
-          ""
+          "loading..."
+        ) : !data ? (
+          "User not found"
         ) : (
           <div className="w-full flex flex-col bg-cd lg:rounded-lg p-6 xl:p-5 gap-2">
             <BackBox name={data?.data?.user?.username} />
