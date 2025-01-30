@@ -20,14 +20,23 @@ export const getUsersController = asyncHandler(async (req, res) => {
   return res.json(new ApiResponse(200, users, null));
 });
 
-//get users request
-export const getUsersFriendsController = asyncHandler(async (req, res) => {
-  const user = await UserModel.findById(req.user._id).populate(
-    "friends",
-    "username name avatar"
-  );
+//get friends users
+export const getFriendsUsersController = asyncHandler(async (req, res) => {
+  const resultPerPage = req.query.limit ? req.query.limit : 5;
 
-  return res.json(new ApiResponse(200, { users: user.friends }, null));
+  req.query.loginUser = req.user._id;
+
+  let apiFeature = new UserApiFeatures(
+    UserModel.find({}),
+    req.query && req.query
+  )
+    .search()
+    .friends()
+    .pagination(resultPerPage);
+
+  let users = await apiFeature.query;
+
+  return res.json(new ApiResponse(200, users, null));
 });
 
 //get users request
@@ -63,7 +72,7 @@ export const getUserController = asyncHandler(async (req, res) => {
   return res.json(new ApiResponse(200, { user }, null));
 });
 
-//get user
+//get user relation status
 export const getUserRelationController = asyncHandler(async (req, res) => {
   const { id } = req.params;
 

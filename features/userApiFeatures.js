@@ -28,6 +28,13 @@ class UserApiFeatures {
     return this;
   }
 
+  friends() {
+    this.query = this.query.find({
+      friends: { $in: [this.queryStr.loginUser] },
+    });
+    return this;
+  }
+
   pagination(resultPerPage) {
     const currentPage = Number(this.queryStr.page) || 1;
 

@@ -2,23 +2,45 @@ import { useNavigate } from "react-router-dom";
 import ImageBox from "../../components/boxes/ImageBox";
 import IconButton from "../../components/buttons/IconButton";
 import NavigationLinks from "../../components/NavigationLinks";
-import { profileDataLink, sideBarLinks } from "../../data/Links";
+import { sideBarLinks } from "../../data/Links";
 import SeachInput from "../../components/inputs/SeachInput";
-import { useState } from "react";
-import ResentSearch from "../../components/boxes/ResentSearch";
+import { useEffect, useState } from "react";
 import AccountBox from "../../components/boxes/AccountBox";
 import SearchUserBox from "../../components/boxes/SearchUserBox";
+import { useQuery } from "@tanstack/react-query";
+import { getUsersFriendApi } from "../../app/api/userApi";
+import { useDebounce } from "../../hooks/Debounce";
 
 const Friends = () => {
   const navigate = useNavigate();
 
   //states
   const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearch = useDebounce(searchQuery);
+  const [debouceLoading, setDebouceLoading] = useState(false);
+
+  // quries
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["get-users-friends"],
+    queryFn: () => getUsersFriendApi({ search: searchQuery }),
+    retry: 1,
+  });
 
   //functions
   const onChange = (e) => {
     setSearchQuery(e.target.value);
+    setDebouceLoading(true);
   };
+
+  // useEffect
+  useEffect(() => {
+    const loadUsers = async () => {
+      await refetch(debouncedSearch);
+      setDebouceLoading(false);
+    };
+
+    loadUsers();
+  }, [debouncedSearch, refetch]);
 
   return (
     <div className="flex min-h-[91vh] w-full justify-between gap-2 xl:gap-20">
@@ -65,11 +87,11 @@ const Friends = () => {
             />
           </div>
 
-          <ResentSearch />
-
-          <SearchUserBox data={profileDataLink} />
-          <SearchUserBox data={profileDataLink} />
-          <SearchUserBox data={profileDataLink} />
+          {isLoading || debouceLoading
+            ? "loading..."
+            : data?.data?.length > 0 ? data?.data?.map((item) => (
+                <SearchUserBox key={item._id} data={item} />
+              )) : "No friend found"}
         </div>
       </div>
 

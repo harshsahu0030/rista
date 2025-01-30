@@ -11,7 +11,7 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 
 const ReceivedRequest = ({ data, refetch }) => {
   // quires;
-  const { mutate: cancelMutate, isPending: cancelLoading } = useMutation({
+  const { mutate: confirmMutate, isPending: cancelLoading } = useMutation({
     mutationFn: confirmRequestUserApi,
 
     onError: (error) => {
@@ -36,8 +36,8 @@ const ReceivedRequest = ({ data, refetch }) => {
   });
 
   //function
-  const cancelRequestUser = () => {
-    cancelMutate(data);
+  const confirmRequestUser = () => {
+    confirmMutate(data);
   };
   const rejectRequestUser = () => {
     rejectMutate(data);
@@ -51,7 +51,7 @@ const ReceivedRequest = ({ data, refetch }) => {
         icon={PersonAddAltIcon}
         type="dark"
         isPending={cancelLoading && rejectLoading}
-        onClick={cancelRequestUser}
+        onClick={confirmRequestUser}
       />
       <IconButton
         name="Reject"

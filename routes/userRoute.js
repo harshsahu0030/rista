@@ -3,10 +3,10 @@ import { isAuthenticated } from "../middlewares/auth.js";
 import {
   cancelUserRequestController,
   confirmUserRequestController,
+  getFriendsUsersController,
   getUserController,
   getUserRelationController,
   getUsersController,
-  getUsersFriendsController,
   getUsersRequestController,
   getUsersRequestSendController,
   rejectUserRequestController,
@@ -18,9 +18,10 @@ const router = express.Router();
 
 router.route("/users").get(isAuthenticated, getUsersController);
 
-router.route("/users/friends").get(isAuthenticated, getUsersFriendsController);
+router.route("/users/friends").get(isAuthenticated, getFriendsUsersController);
 
 router.route("/users/requests").get(isAuthenticated, getUsersRequestController);
+
 
 router
   .route("/users/requestssend")

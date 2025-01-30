@@ -102,6 +102,20 @@ export const getUsersApi = async ({ search = "" }) => {
   return data;
 };
 
+//get friends
+export const getUsersFriendApi = async ({ search = "" }) => {
+  const { data } = await axios.get(
+    `/api/v1/users/friends?${search && `search=${search}`}`
+  );
+  return data;
+};
+
+//get friends
+export const getUsersFriendsRequestApi = async () => {
+  const { data } = await axios.get(`/api/v1/users/requests`);
+  return data;
+};
+
 //get user relaton
 export const getUserRelationApi = async (id) => {
   const { data } = await axios.get(`/api/v1/users/relation/${id}`);
