@@ -73,7 +73,7 @@ const ProfileInfo = ({ data, refetch, userRelation }) => {
             name=""
             icon={ForumOutlinedIcon}
             type="light"
-            onClick={() => navigate(`/`)}
+            onClick={() => navigate(`/messenger/${data?.user?._id}`)}
           />
         )}
       </div>

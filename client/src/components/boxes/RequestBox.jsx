@@ -1,8 +1,6 @@
 import propTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import IconButton from "../buttons/IconButton";
-import { useContext } from "react";
-import AuthContext from "../../context/AuthUser";
 import User from "../../assets/user.jpg";
 import { useMutation } from "@tanstack/react-query";
 import {
@@ -11,8 +9,7 @@ import {
 } from "../../app/api/userApi";
 import toast from "react-hot-toast";
 
-const RequestBox = ({ data }) => {
-  const { currentUser, refetch } = useContext(AuthContext);
+const RequestBox = ({ data, refetch }) => {
   const navigate = useNavigate();
 
   // quires;
@@ -40,15 +37,13 @@ const RequestBox = ({ data }) => {
     },
   });
 
-  
   //function
   const confirmRequestUser = () => {
-    confirmMutate(data);
+    confirmMutate(data?._id);
   };
   const rejectRequestUser = () => {
-    rejectMutate(data);
+    rejectMutate(data?._id);
   };
-
 
   return (
     <div className="relative w-full h-[8vh] md:h-[6vh] lg:h-[5vh] xl:h-[8vh] flex bg-ce rounded-lg p-2 gap-4 hover:bg-ce/80 transition-all cursor-pointer justify-between flex-wrap ">
@@ -58,7 +53,7 @@ const RequestBox = ({ data }) => {
         onClick={() => navigate(data?.url)}
       >
         <img
-          src={currentUser?.avatar?.url ? currentUser?.avatar.url : User}
+          src={data?.avatar?.url ? data?.avatar.url : User}
           alt="image"
           className="h-10 w-10  object-cover rounded-full bg-white"
           height={50}
@@ -94,6 +89,7 @@ const RequestBox = ({ data }) => {
 
 RequestBox.propTypes = {
   data: propTypes.object,
+  refetch: propTypes.func,
 };
 
 export default RequestBox;

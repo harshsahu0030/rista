@@ -5,13 +5,21 @@ import BackBox from "../../components/boxes/BackBox";
 import ImageBox from "../../components/boxes/ImageBox";
 import RequestBox from "../../components/boxes/RequestBox";
 import { sideBarLinks } from "../../data/Links";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const RequestFriend = () => {
   // quries
-  const { data, isLoading } = useQuery({
-    queryKey: ["get-users-friends"],
+  const { data, isLoading, refetch, isError, error } = useQuery({
+    queryKey: ["get-users-friends-requests"],
     queryFn: () => getUsersFriendsRequestApi(),
   });
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.response.data.message);
+    }
+  }, [isError, error]);
 
   return (
     <div className="flex min-h-[91vh] w-full justify-between gap-2 xl:gap-20">
@@ -33,7 +41,7 @@ const RequestFriend = () => {
       {/* center  */}
       <div className="flex flex-col w-[100%] lg:w-[70%] xl:w-[50%] lg:p-2 gap-2">
         <div className="w-full flex flex-col bg-cd lg:rounded-lg p-2 xl:p-5">
-          <BackBox name="friends request" />
+          <BackBox name="Friends Request" />
         </div>
 
         <div className="w-full flex flex-col bg-cd lg:rounded-lg p-2 xl:p-5 gap-2">
@@ -41,7 +49,7 @@ const RequestFriend = () => {
             ? "loading..."
             : data && data?.data?.length > 0
             ? data?.data?.map((item) => (
-                <RequestBox key={item._id} data={item} />
+                <RequestBox key={item._id} data={item} refetch={refetch} />
               ))
             : "No requests found"}
         </div>

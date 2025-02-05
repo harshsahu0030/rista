@@ -27,11 +27,11 @@ export const getFriendsUsersController = asyncHandler(async (req, res) => {
   req.query.loginUser = req.user._id;
 
   let apiFeature = new UserApiFeatures(
-    UserModel.find({}),
+    UserModel.find({}, "username name avatar"),
     req.query && req.query
   )
-    .search()
     .friends()
+    .search()
     .pagination(resultPerPage);
 
   let users = await apiFeature.query;
@@ -46,7 +46,7 @@ export const getUsersRequestController = asyncHandler(async (req, res) => {
     "username name avatar"
   );
 
-  return res.json(new ApiResponse(200, { users: user.friendRequests }, null));
+  return res.json(new ApiResponse(200, user.friendRequests, null));
 });
 
 //get users request send
@@ -56,7 +56,7 @@ export const getUsersRequestSendController = asyncHandler(async (req, res) => {
     "username name avatar"
   );
 
-  return res.json(new ApiResponse(200, { users: user.sendRequests }, null));
+  return res.json(new ApiResponse(200, user.sendRequests, null));
 });
 
 //get user

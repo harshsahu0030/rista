@@ -38,7 +38,7 @@ const AddGroupUserBox = ({ data, users, setUsers }) => {
             onClick={() =>
               handleAddUserButton({
                 _id: data?._id,
-                userName: data?.userName,
+                username: data?.username,
                 avatar: data?.image ? data?.image : {},
               })
             }

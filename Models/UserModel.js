@@ -78,6 +78,13 @@ const userSchema = mongoose.Schema(
       },
     ],
 
+    chats: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Chat",
+      },
+    ],
+
     resetPasswordToken: {
       type: String,
     },

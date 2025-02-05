@@ -1,10 +1,8 @@
-import { createContext, useMemo, useContext } from "react";
+import { createContext, useEffect, useMemo } from "react";
 import io from "socket.io-client";
 import propTypes from "prop-types";
 
 const SocketContext = createContext();
-
-const GetSocket = () => useContext(SocketContext);
 
 export const SocketProvider = ({ children }) => {
   const socket = useMemo(
@@ -14,10 +12,20 @@ export const SocketProvider = ({ children }) => {
       }),
     []
   );
+  useEffect(() => {
+    socket.on("welcome", (data) => {
+      console.log(data);
+    });
 
+    return () => {
+      socket.disconnect();
+    };
+  }, [socket]);
 
   return (
-    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
+    <SocketContext.Provider value={{ socket }}>
+      {children}
+    </SocketContext.Provider>
   );
 };
 
@@ -25,4 +33,4 @@ SocketProvider.propTypes = {
   children: propTypes.array,
 };
 
-export default GetSocket;
+export default SocketContext;

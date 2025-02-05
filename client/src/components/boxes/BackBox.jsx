@@ -10,7 +10,7 @@ const BackBox = ({ name, url }) => {
     navigate(url ? url : -1);
   };
   return (
-    <div className="w-full bg-ce p-2 rounded-lg flex gap-4 items-center capitalize">
+    <div className="w-full bg-ce p-2 rounded-lg flex gap-4 items-center">
       <button
         className="hover:scale-110 hover:text-cc transition-all"
         onClick={handleBack}

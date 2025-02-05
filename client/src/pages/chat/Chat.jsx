@@ -1,9 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
 import AccountBox from "../../components/boxes/AccountBox";
 import ImageBox from "../../components/boxes/ImageBox";
 import NavigationLinks from "../../components/NavigationLinks";
 import { sideBarLinks } from "../../data/Links";
+import { findChatsOfUserApi } from "../../app/api/chatApi";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const Chat = () => {
+  // quries
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["get-users-friends-requests"],
+    queryFn: () => findChatsOfUserApi(),
+  });
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.response.data.message);
+    }
+  }, [isError, error]);
+
   return (
     <div className="flex min-h-[91vh] w-full justify-between gap-2 xl:gap-20">
       {/* left  */}

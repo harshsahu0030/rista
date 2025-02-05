@@ -10,6 +10,25 @@ const schema = new Schema(
       type: Boolean,
       default: false,
     },
+
+    avatar: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+    },
+
+    coverImage: {
+      public_id: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+    },
+
     creator: {
       type: Types.ObjectId,
       ref: "User",
@@ -31,7 +50,6 @@ const schema = new Schema(
     timestamps: true,
   }
 );
-
 
 const ChatModel = mongoose.models.Chat || model("Chat", schema);
 

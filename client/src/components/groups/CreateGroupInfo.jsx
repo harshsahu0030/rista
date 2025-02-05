@@ -1,14 +1,18 @@
 import { useRef, useState } from "react";
 import User from "../../assets/user.jpg";
+import CoverImg from "../../assets/cover.webp";
 import IconButton from "../buttons/IconButton";
 import HoverImageUpdate from "../hover/HoverImageUpdate";
 import AuthInput from "../inputs/AuthInput";
 import TextArea from "../inputs/TextArea";
 import AddGroupMember from "./AddGroupMember";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { createGroupApi } from "../../app/api/chatApi";
 
 const CreateGroupInfo = () => {
   //ref
-  const backgroundRef = useRef();
+  const coverImageRef = useRef();
   const avatarRef = useRef();
 
   //states
@@ -16,25 +20,69 @@ const CreateGroupInfo = () => {
     name: "",
     bio: "",
     avatar: "",
-    backgroundImage: "",
+    coverImage: "",
   });
   const [users, setUsers] = useState([]);
+
+  // quires
+  const { mutate, isPending } = useMutation({
+    mutationFn: createGroupApi,
+
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+  });
 
   //funtions
   const handleChange = (e) => {
     setCreateGroupForm({ ...createGroupForm, [e.target.name]: e.target.value });
   };
 
-  const uploadAvatarHandler = () => {
-    const uploadedFile = avatarRef.current.files[0];
-    const cachedUrl = URL.createObjectURL(uploadedFile);
-    setCreateGroupForm({ ...createGroupForm, avatar: cachedUrl });
+  const uploadAvatarHandler = (e) => {
+    const files = Array.from(e.target.files);
+
+    files.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setCreateGroupForm({ ...createGroupForm, avatar: reader.result });
+        }
+      };
+
+      reader.readAsDataURL(file);
+    });
   };
 
-  const uploadBackgroundImgHandler = () => {
-    const uploadedFile = backgroundRef.current.files[0];
-    const cachedUrl = URL.createObjectURL(uploadedFile);
-    setCreateGroupForm({ ...createGroupForm, backgroundImage: cachedUrl });
+  const uploadBCoverImageHandler = (e) => {
+    const files = Array.from(e.target.files);
+
+    files.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setCreateGroupForm({ ...createGroupForm, coverImage: reader.result });
+        }
+      };
+
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let newObj = {
+      ...createGroupForm,
+      members: users.map((user) => user._id),
+    };
+
+    console.log(newObj);
+    mutate(newObj);
   };
 
   return (
@@ -46,14 +94,18 @@ const CreateGroupInfo = () => {
             type="button"
             className="relative h-full rounded-lg w-full group/btn transition-all"
             onClick={() => {
-              backgroundRef.current.click();
+              coverImageRef.current.click();
             }}
           >
             <HoverImageUpdate />
 
             <img
-              src="https://images.pexels.com/photos/1933239/pexels-photo-1933239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="background-image"
+              src={
+                createGroupForm && createGroupForm.coverImage
+                  ? createGroupForm.coverImage
+                  : CoverImg
+              }
+              alt="cover-image"
               className="object-cover h-full w-full overflow-hidden"
               height={50}
               width={50}
@@ -61,18 +113,17 @@ const CreateGroupInfo = () => {
           </button>
 
           <input
-            ref={backgroundRef}
+            ref={coverImageRef}
             type="file"
             hidden
-            value={createGroupForm.backgroundImage}
-            onChange={uploadBackgroundImgHandler}
+            onChange={uploadBCoverImageHandler}
           />
         </div>
 
-        <div className="absolute h-36 w-36 md:h-60 md:w-60 lg:h-48 lg:w-48 xl:h-40 xl:w-40 rounded-full bottom-0 left-5 md:left-10  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 overflow-hidden">
+        <div className="absolute h-36 w-36 object-cover md:h-60 md:w-60 lg:h-48 lg:w-48 xl:h-40 xl:w-40 rounded-full bottom-0 left-5 md:left-10 overflow-hidden">
           <button
             type="button"
-            className="relative h-full rounded-lg w-full group/btn p-2"
+            className="relative h-full rounded-lg w-full group/btn"
             onClick={() => {
               avatarRef.current.click();
             }}
@@ -80,9 +131,13 @@ const CreateGroupInfo = () => {
             <HoverImageUpdate />
 
             <img
-              src={User}
+              src={
+                createGroupForm && createGroupForm.avatar
+                  ? createGroupForm.avatar
+                  : User
+              }
               alt="user-image"
-              className="object-cover rounded-full h-full w-full"
+              className="h-full w-full p-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 overflow-hidden rounded-full"
               height={50}
               width={50}
             />
@@ -92,7 +147,6 @@ const CreateGroupInfo = () => {
             ref={avatarRef}
             type="file"
             hidden
-            value={createGroupForm.avatar}
             onChange={uploadAvatarHandler}
           />
         </div>
@@ -128,7 +182,12 @@ const CreateGroupInfo = () => {
       </div>
 
       <div className="flex px-4 gap-4 flex-wrap mt-4">
-        <IconButton name="Create group" type="dark" />
+        <IconButton
+          name="Create group"
+          type="dark"
+          onClick={handleSubmit}
+          isPending={isPending}
+        />
       </div>
     </form>
   );

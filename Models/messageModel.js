@@ -33,4 +33,6 @@ const schema = new Schema(
   }
 );
 
-export const Message = mongoose.models.Message || model("Message", schema);
+ const MessageModel = mongoose.models.Message || model("Message", schema);
+
+export default MessageModel;
